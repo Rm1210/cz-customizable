@@ -78,11 +78,6 @@ module.exports = {
           return value.charAt(0).toLowerCase() + value.slice(1);
         }
       },
-      // {
-      //   type: 'input',
-      //   name: 'body',
-      //   message: 'Provide a LONGER description of the change (optional). Use "|" to break new line:\n'
-      // },
       {
         type: 'expand',
         name: 'confirmCommit',

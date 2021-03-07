@@ -66,7 +66,7 @@ describe('cz-customizable', function() {
       scope: 'myScope',
       subject: 'create a new cool feature'
     };
-    expect(getQuestion(6).message(answers)).toMatch('Are you sure you want to proceed with the commit above?');
+    expect(getQuestion(5).message(answers)).toMatch('Are you sure you want to proceed with the commit above?');
   });
 
   describe('Optional scopes', function() {
