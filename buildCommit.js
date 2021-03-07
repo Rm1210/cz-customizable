@@ -4,7 +4,7 @@
 var wrap = require('word-wrap');
 
 
-module.exports = function buildCommit(answers) {
+module.exports = function buildCommit(answers, auditors) {
 
   var maxLineWidth = 100;
 
@@ -56,6 +56,18 @@ module.exports = function buildCommit(answers) {
   }
   if (footer) {
     result += '\n\nISSUES CLOSED: ' + footer;
+  }
+
+  if (auditors) {
+    result += '\n\nAuditors: ';
+
+    var i = auditors.length;
+    while (i--) {
+      result += auditors[i];
+      if (i != 0) {
+        result += ', ';
+      }
+    }
   }
 
   return escapeSpecialChars(result);

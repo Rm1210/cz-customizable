@@ -1,7 +1,7 @@
 {
-  "version": "0.0.0-semantically-released",
-  "name": "cz-customizable",
-  "description": "Commitizen customizable adapter following the conventional-changelog format.",
+  "version": "0.0.2",
+  "name": "cz-kiwi-iOS-changelog",
+  "description": "The Commitizen adapter for kiwi-iOS team.",
   "main": "index.js",
   "scripts": {
     "eslint": "node_modules/eslint/bin/eslint.js *.js spec/**.js",
@@ -12,10 +12,10 @@
     "report-coverage": "cat ./coverage/lcov.info | codecov",
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
-  "homepage": "https://github.com/leonardoanalista/cz-customizable",
+  "homepage": "https://github.com/Rm1210/cz-customizable",
   "repository": {
     "type": "git",
-    "url": "https://github.com/leonardoanalista/cz-customizable.git"
+    "url": "https://github.com/Rm1210/cz-customizable"
   },
   "author": "Leonardo Correa <leonardoanalista@gmail.com>",
   "contributors": [
@@ -38,14 +38,16 @@
     "istanbul": "0.4.0",
     "jasmine-node": "1.14.5",
     "rewire": "2.5.0",
-    "semantic-release": "4.3.5"
+    "semantic-release": "4.3.5",
+    "git-user-name": "1.2.0"
   },
   "config": {
     "commitizen": {
       "path": "./index.js"
     },
     "cz-customizable": {
-      "config": "cz-config-EXAMPLE.js"
+      "config": "cz-config-EXAMPLE.js",
+      "auditors": "repoAuditors.json"
     },
     "ghooks": {
       "pre-commit": "npm run eslint && npm run test"

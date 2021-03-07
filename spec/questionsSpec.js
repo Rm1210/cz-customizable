@@ -24,8 +24,7 @@ describe('cz-customizable', function() {
       scopeOverrides: {
         fix: [{name: 'fixOverride'}]
       },
-      allowCustomScopes: true,
-      allowBreakingChanges: ['feat']
+      allowCustomScopes: true
     };
 
     // question 1 - TYPE
@@ -38,8 +37,6 @@ describe('cz-customizable', function() {
     expect(getQuestion(2).choices({})[0]).toEqual({name: 'myScope'});
     expect(getQuestion(2).choices({type: 'fix'})[0]).toEqual({name: 'fixOverride'}); //should override scope
     expect(getQuestion(2).when({type: 'fix'})).toEqual(true);
-    expect(getQuestion(2).when({type: 'WIP'})).toEqual(false);
-    expect(getQuestion(2).when({type: 'wip'})).toEqual(false);
 
     // question 3 - SCOPE CUSTOM
     expect(getQuestion(3).name).toEqual('scope');
@@ -55,24 +52,12 @@ describe('cz-customizable', function() {
     expect(getQuestion(4).filter('Subject')).toEqual('subject');
 
     // question 5 - BODY
-    expect(getQuestion(5).name).toEqual('body');
-    expect(getQuestion(5).type).toEqual('input');
+    // expect(getQuestion(5).name).toEqual('body');
+    // expect(getQuestion(5).type).toEqual('input');
 
-    // question 6 - BREAKING CHANGE
-    expect(getQuestion(6).name).toEqual('breaking');
-    expect(getQuestion(6).type).toEqual('input');
-    expect(getQuestion(6).when({type: 'feat'})).toEqual(true);
-    expect(getQuestion(6).when({type: 'fix'})).toEqual(false);
-
-    // question 7 - FOOTER
-    expect(getQuestion(7).name).toEqual('footer');
-    expect(getQuestion(7).type).toEqual('input');
-    expect(getQuestion(7).when({type: 'fix'})).toEqual(true);
-    expect(getQuestion(7).when({type: 'WIP'})).toEqual(false);
-
-    //question 8, last one, CONFIRM COMMIT OR NOT
-    expect(getQuestion(8).name).toEqual('confirmCommit');
-    expect(getQuestion(8).type).toEqual('expand');
+    //question 6, last one, CONFIRM COMMIT OR NOT
+    expect(getQuestion(5).name).toEqual('confirmCommit');
+    expect(getQuestion(5).type).toEqual('expand');
 
 
     var answers = {
@@ -81,42 +66,7 @@ describe('cz-customizable', function() {
       scope: 'myScope',
       subject: 'create a new cool feature'
     };
-    expect(getQuestion(8).message(answers)).toMatch('Are you sure you want to proceed with the commit above?');
-  });
-
-
-  describe('optional fixOverride and allowBreakingChanges', function() {
-
-    it('should restrict BREAKING CHANGE question when config property "allowBreakingChanges" specifies array of types', function() {
-      config = {
-        types: [{value: 'feat', name: 'feat: my feat'}],
-        scopes: [{name: 'myScope'}],
-        allowBreakingChanges: ['fix']
-      };
-      expect(getQuestion(6).name).toEqual('breaking');
-
-      var answers = {
-        type: 'feat'
-      };
-
-      expect(getQuestion(6).when(answers)).toEqual(false); // not allowed
-    });
-
-    it('should allow BREAKING CHANGE question when config property "allowBreakingChanges" specifies array of types and answer is one of those', function() {
-      config = {
-        types: [{value: 'feat', name: 'feat: my feat'}],
-        scopes: [{name: 'myScope'}],
-        allowBreakingChanges: ['fix', 'feat']
-      };
-      expect(getQuestion(6).name).toEqual('breaking');
-
-      var answers = {
-        type: 'feat'
-      };
-
-      expect(getQuestion(6).when(answers)).toEqual(true); // allowed
-    });
-
+    expect(getQuestion(6).message(answers)).toMatch('Are you sure you want to proceed with the commit above?');
   });
 
   describe('Optional scopes', function() {

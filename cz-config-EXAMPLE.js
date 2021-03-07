@@ -3,23 +3,22 @@
 module.exports = {
 
   types: [
-    {value: 'feat',     name: 'feat:     A new feature'},
-    {value: 'fix',      name: 'fix:      A bug fix'},
-    {value: 'docs',     name: 'docs:     Documentation only changes'},
-    {value: 'style',    name: 'style:    Changes that do not affect the meaning of the code\n            (white-space, formatting, missing semi-colons, etc)'},
-    {value: 'refactor', name: 'refactor: A code change that neither fixes a bug nor adds a feature'},
-    {value: 'perf',     name: 'perf:     A code change that improves performance'},
-    {value: 'test',     name: 'test:     Adding missing tests'},
-    {value: 'chore',    name: 'chore:    Changes to the build process or auxiliary tools\n            and libraries such as documentation generation'},
-    {value: 'revert',   name: 'revert:   Revert to a commit'},
-    {value: 'WIP',      name: 'WIP:      Work in progress'}
+    {value: '【需求】',  name: '【需求】:  新功能（feature）'},
+    {value: '【修复】',  name: '【修复】:  修复bug (尽量在 scope 中带上 Phabricator 中 fix 的 hash id)'},
+    {value: '【优化】',  name: '【优化】:  优化（即不是新增功能，也不是修改bug的代码变动）'}
   ],
 
   scopes: [
-    {name: 'accounts'},
-    {name: 'admin'},
-    {name: 'exampleScope'},    
-    {name: 'changeMe'}
+    {name: 'Business'},
+    {name: 'BusinessMid'},
+    {name: 'CrossPlatformBusiness'},
+    {name: 'HYTinyConsole'},
+    {name: 'LiveBase'},
+    {name: 'LiveBusiness'},
+    {name: 'LiveMid'},
+    {name: 'LiveTemplate'},
+    {name: 'BaseBusiness'},
+    {name: 'Base'}
   ],
 
   // it needs to match the value for field type. Eg.: 'fix'
@@ -35,7 +34,7 @@ module.exports = {
   },
   */
 
-  allowCustomScopes: true,
-  allowBreakingChanges: ['feat', 'fix']
 
+  forceAuditors: true,
+  allowCustomScopes: true
 };
