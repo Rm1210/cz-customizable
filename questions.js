@@ -27,7 +27,7 @@ module.exports = {
       {
         type: 'list',
         name: 'scope',
-        message: '\nDenote the SCOPE of this change (optional):',
+        message: '\nSelect the COMPONENT or input Phabricator\'s HASH ID of this change (optional):',
         choices: function(answers) {
           var scopes = [];
           if (config.scopeOverrides[answers.type]) {
@@ -62,7 +62,7 @@ module.exports = {
       {
         type: 'input',
         name: 'scope',
-        message: 'Denote the SCOPE of this change:',
+        message: 'Input custom scope or Phabricator\'s HASH ID:',
         when: function(answers) {
           return answers.scope === 'custom';
         }
@@ -78,11 +78,11 @@ module.exports = {
           return value.charAt(0).toLowerCase() + value.slice(1);
         }
       },
-      {
-        type: 'input',
-        name: 'body',
-        message: 'Provide a LONGER description of the change (optional). Use "|" to break new line:\n'
-      },
+      // {
+      //   type: 'input',
+      //   name: 'body',
+      //   message: 'Provide a LONGER description of the change (optional). Use "|" to break new line:\n'
+      // },
       {
         type: 'expand',
         name: 'confirmCommit',
