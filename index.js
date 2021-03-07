@@ -11,6 +11,7 @@ var temp = require('temp').track();
 var fs = require('fs');
 var path = require('path');
 var buildCommit = require('./buildCommit');
+var colors = require('colors/safe');
 
 
 /* istanbul ignore next */
@@ -22,43 +23,50 @@ function readConfigFile() {
     if (pkg.config && pkg.config['cz-customizable'] && pkg.config['cz-customizable'].config) {
       var pkgPath = path.resolve(pkg.config['cz-customizable'].config);
 
-      console.info('>>> Using cz-kiwi-iOS-changelog config specified in your package.json: ', pkgPath);
+      console.info('>>> Using config ' + colors.green(pkgPath) + ' specified in your package.json');
 
       return require(pkgPath);
     }
   }
 
-  log.warn('Unable to find a configuration file. Please refer to documentation to learn how to ser up: https://github.com/leonardoanalista/cz-customizable#steps "');
+  console.log(colors.yellow('Unable to find a configuration file. Please refer to documentation to learn how to set up: https://github.com/leonardoanalista/cz-customizable#steps "'));
 }
 
 function readAuditors() {
-  var username = require('git-user-name');
-  var gitUsername = username({path: '.git/config'}) || username();
-  if (!gitUsername) {
-    throw new Error('Can NOT get the git username. use \'git config (--global) user.name "yourname"\' to set it');
-  }
-
-  var pkg = findConfig.require('package.json', {home: false});
-  if (pkg) {
-    if (pkg.config && pkg.config['cz-customizable'] && pkg.config['cz-customizable'].auditors) {
-      var pkgPath = path.resolve(pkg.config['cz-customizable'].auditors);
-
-      try {
-        return require(pkgPath)[gitUsername];
-      } catch(err) {
-        console.info('>>> You set a Auditors file config but the file does NOT exit.\n' +
-            '    I will try to read the repoAuditors.json file.');
-      }
+    var username = require('git-user-name');
+    var gitUsername = username({path: '.git/config'}) || username();
+    console.log('>>> Git username: ' + colors.green(gitUsername));
+    if (!gitUsername) {
+      console.log(colors.red('\nCan NOT get the git username. use \'git config (--global) user.name "yourname"\' to set it\n'));
+        throw new Error();
     }
-  }
 
-  var defaultAuditors = findConfig.require('repoAuditors.json', {home: false});
+    var pkg = findConfig.require('package.json', {home: false});
+    if (pkg) {
+        if (pkg.config && pkg.config['cz-customizable'] && pkg.config['cz-customizable'].auditors) {
+            var pkgPath = path.resolve(pkg.config['cz-customizable'].auditors);
 
-  if (defaultAuditors && defaultAuditors[gitUsername] && defaultAuditors[gitUsername].length) {
-    return defaultAuditors[gitUsername];
-  }
+            try {
+                if (!require(pkgPath)[gitUsername]) {
+                  console.log(colors.yellow('>>> You set a Auditors file config but the your username does NOT in it.\n' +
+                    '    I will try to read the repoAuditors.json file.'));
+                } else {
+                  return require(pkgPath)[gitUsername];
+                }
+            } catch(err) {
+                console.info(colors.yellow('>>> You set a Auditors file config but the file does NOT exit.\n' +
+                    '    I will try to read the repoAuditors.json file.'));
+            }
+        }
+    }
 
-  console.info('>>> Unable to find a Auditors config.');
+    var defaultAuditors = findConfig.require('repoAuditors.json', {home: false});
+
+    if (defaultAuditors && defaultAuditors[gitUsername] && defaultAuditors[gitUsername].length) {
+        return defaultAuditors[gitUsername];
+    }
+
+    console.info(colors.yellow('>>> Unable to find a Auditors config finally.'));
 }
 
 module.exports = {
@@ -67,11 +75,13 @@ module.exports = {
     var config = readConfigFile();
     var auditorsConfig = readAuditors();
     if (config.forceAuditors && !auditorsConfig) {
-      throw new Error('The repo force set your Auditors, but I can NOT reach it. Please check.');
+        console.log(colors.red('\nThe repo force set your Auditors, but I can NOT reach it. Please check.\n'));
+        throw new Error();
     }
     config.auditors = auditorsConfig;
 
-    log.info('\n\nLine 1 will be cropped at 100 characters. All other lines will be wrapped after 100 characters.\n');
+    //log.info('\n\nLine 1 will be cropped at 100 characters. All other lines will be wrapped after 100 characters.\n');
+    console.log();
 
     var questions = require('./questions').getQuestions(config, cz);
 

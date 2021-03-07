@@ -1,5 +1,5 @@
 {
-  "version": "0.0.4",
+  "version": "0.0.5",
   "name": "cz-kiwi-iOS-changelog",
   "description": "The Commitizen adapter for kiwi-iOS team.",
   "main": "index.js",
@@ -23,20 +23,21 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "colors": "^1.1.2",
     "editor": "1.0.0",
-    "find-config": "0.3.0",
+    "find-config": "^1.0.0",
+    "git-user-name": "1.2.0",
+    "inquirer": "^3.1.1",
     "temp": "0.8.3",
-    "winston": "2.1.0",
-    "word-wrap": "1.1.0",
-    "inquirer": "1.2.3",
-    "git-user-name": "1.2.0"
+    "winston": "^2.3.1",
+    "word-wrap": "^1.2.3"
   },
   "devDependencies": {
     "codecov.io": "0.1.6",
-    "commitizen": "2.9.5",
-    "eslint": "1.9.0",
-    "ghooks": "1.0.0",
-    "istanbul": "0.4.0",
+    "commitizen": "^2.9.6",
+    "eslint": "^4.0.0",
+    "ghooks": "^2.0.0",
+    "istanbul": "^0.4.5",
     "jasmine-node": "1.14.5",
     "rewire": "2.5.0",
     "semantic-release": "4.3.5"

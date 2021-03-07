@@ -3,6 +3,7 @@
 
 var buildCommit = require('./buildCommit');
 var log = require('winston');
+var colors = require('colors/safe');
 
 
 var isNotWip = function(answers) {
@@ -26,7 +27,7 @@ module.exports = {
       {
         type: 'list',
         name: 'scope',
-        message: '\nSelect the COMPONENT or denote Phabricator\'s HASH ID (optional):',
+        message: '\nDenote the SCOPE of this change (optional):',
         choices: function(answers) {
           var scopes = [];
           if (config.scopeOverrides[answers.type]) {
@@ -77,11 +78,11 @@ module.exports = {
           return value.charAt(0).toLowerCase() + value.slice(1);
         }
       },
-      // {
-      //   type: 'input',
-      //   name: 'body',
-      //   message: 'Provide a LONGER description of the change (optional). Use "|" to break new line:\n'
-      // },
+      {
+        type: 'input',
+        name: 'body',
+        message: 'Provide a LONGER description of the change (optional). Use "|" to break new line:\n'
+      },
       {
         type: 'expand',
         name: 'confirmCommit',
@@ -92,7 +93,7 @@ module.exports = {
         ],
         message: function(answers) {
           var SEP = '###--------------------------------------------------------###';
-          log.info('\n' + SEP + '\n' + buildCommit(answers, config.auditors) + '\n' + SEP + '\n');
+          console.info('\n' + SEP + '\n' + colors.green(buildCommit(answers, config.auditors)) + '\n' + SEP + '\n');
           return 'Are you sure you want to proceed with the commit above?';
         }
       }
