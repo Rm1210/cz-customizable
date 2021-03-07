@@ -1,5 +1,5 @@
 {
-  "version": "0.0.2",
+  "version": "0.0.3",
   "name": "cz-kiwi-iOS-changelog",
   "description": "The Commitizen adapter for kiwi-iOS team.",
   "main": "index.js",

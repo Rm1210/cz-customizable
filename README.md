@@ -1,3 +1,82 @@
+# cz-kiwi-iOS-changelog
+
+## 初始化
+1. 安装 [Commitizen](https://github.com/commitizen/cz-cli)：`npm install -g commitizen` 
+2. 初始化 package.json ：`npm init --yes` （如果已经存在请忽略）
+3. 安装 cz-kiwi-iOS-changelog: `npm install cz-kiwi-iOS-changelog --save-dev`
+4. 配置 `commitizen` 使用 `cz-kiwi-iOS-changelog` 作为 adapter。添加如下配置到 `package.json`:
+  ```
+  ...
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-kiwi-iOS-changelog"
+    }
+  }
+  ```
+5. 在 `package.json` 中声明配置文件:
+  ```
+  ...
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-kiwi-iOS-changelog"
+    },
+    "cz-customizable": {
+      "config": "config/path/to/my/config.js"
+    }
+  }
+  ```
+6. 如果在上述配置文件中声明了强制要求 Auditors：`forceAuditors: true`，需要在 `package.json` 中声明 auditors 文件：
+```
+  ...
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-kiwi-iOS-changelog"
+    },
+    "cz-customizable": {
+      "config": "config/path/to/my/config.js",
+      "auditors": "path/to/my/repoAuditors.json"
+    }
+  }
+```
+
+## 新增配置项
+forceAuditors: {boolean, default false}: 标识是否强制要求 Auditors，如果为 true，需要在 `package.json` 中声明 auditors 文件；如果没有声明，会尝试读取 `repoAuditors.json` 。auditors 文件示例：
+```
+{
+  "Rm1210": ["Mike", "Jim"],
+  "Mike": ["Luthi", "Alex"],
+  ...
+}
+```
+cz-kiwi-iOS-changelog 会根据 `git config user.name` 匹配对应的 Auditors 。
+
+## 原配置项
+1. 如果需要预置 scopes，在配置文件中添加如下配置：
+```
+scopes: [
+    {name: 'accounts'},
+    {name: 'admin'},
+    {name: 'exampleScope'},    
+    {name: 'changeMe'}
+  ]
+```
+2. 如果需要预置针对不同的 commit type 预置不同的 scopes，可以在配置文件中添加如下配置：
+```
+scopeOverrides: {
+    fix: [
+      {name: 'merge'},
+      {name: 'style'}
+    ],
+    docs: [
+      {name: 'graph'},
+      {name: 'markdown'},
+    ]
+  }
+```
+
+更多信息请查阅原 README ☟☟☟☟☟☟☟☟
+
+
 # cz-customizable
 
 The customizable Commitizen plugin to help achieve consistent commit messages like the [AngularJS team](https://github.com/angular/angular.js/blob/master/CONTRIBUTING.md#-git-commit-guidelines).
@@ -61,7 +140,7 @@ Here are the options you can set in your `.cz-config.js`:
       {name: 'unitTest'}
     ]
   }
-  ```
+```
   * allowCustomScopes: {boolean, default false}: adds the option `custom` to scope selection so you can still typea scope if you need.
   * allowBreakingChanges: {Array of Strings: default none}. List of commit types you would like to the question `breaking change` prompted. Eg.: ['feat', 'fix']
   * appendBranchNameToCommitMessage: If you use `cz-customizable` with `cz-customizable-ghooks`, you can get the branch name automatically appended to the commit message. This is done by a commit hook on `cz-customizable-ghooks`. This option has been added on `cz-customizable-ghooks`, v1.3.0. Default value is `true`.
