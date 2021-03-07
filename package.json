@@ -1,7 +1,7 @@
 {
   "version": "0.0.5",
-  "name": "cz-kiwi-iOS-changelog",
-  "description": "The Commitizen adapter for kiwi-iOS team.",
+  "name": "cz-kiwi-ios-changelog",
+  "description": "The Commitizen adapter for kiwi-ios team.",
   "main": "index.js",
   "scripts": {
     "eslint": "node_modules/eslint/bin/eslint.js *.js spec/**.js",

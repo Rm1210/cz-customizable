@@ -1,4 +1,4 @@
-# cz-kiwi-iOS-changelog
+# cz-kiwi-ios-changelog
 
 新增：根据 `git config user.name` 读取配置文件中对应的 auditors 添加到 commit message 。
 
@@ -10,15 +10,15 @@
 
 2. 初始化 package.json ：`npm init --yes` （如果已经存在请忽略）
 
-3. 安装 cz-kiwi-iOS-changelog: `npm install cz-kiwi-iOS-changelog --save-dev`
+3. 安装 cz-kiwi-ios-changelog: `npm install cz-kiwi-ios-changelog --save-dev`
 
-4. 配置 `commitizen` 使用 `cz-kiwi-iOS-changelog` 作为 adapter。添加如下配置到 `package.json`:
+4. 配置 `commitizen` 使用 `cz-kiwi-ios-changelog` 作为 adapter。添加如下配置到 `package.json`:
 
    ```json
    ...
    "config": {
      "commitizen": {
-       "path": "node_modules/cz-kiwi-iOS-changelog"
+       "path": "node_modules/cz-kiwi-ios-changelog"
      }
    }
    ```
@@ -29,7 +29,7 @@
    ...
    "config": {
      "commitizen": {
-       "path": "node_modules/cz-kiwi-iOS-changelog"
+       "path": "node_modules/cz-kiwi-ios-changelog"
      },
      "cz-customizable": {
        "config": "config/path/to/my/config.js"
@@ -43,7 +43,7 @@
   ...
   "config": {
     "commitizen": {
-      "path": "node_modules/cz-kiwi-iOS-changelog"
+      "path": "node_modules/cz-kiwi-ios-changelog"
     },
     "cz-customizable": {
       "config": "config/path/to/my/config.js",
@@ -66,7 +66,7 @@ forceAuditors: {boolean, default false}: 标识是否强制要求 Auditors，如
 }
 ```
 
-cz-kiwi-iOS-changelog 会根据 `git config user.name` 匹配对应的 Auditors 。
+cz-kiwi-ios-changelog 会根据 `git config user.name` 匹配对应的 Auditors 。
 
 ## 原配置项
 
